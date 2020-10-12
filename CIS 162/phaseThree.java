@@ -4,10 +4,13 @@ public class phaseThree {
     private int month;
     private int day;
     private int year;
+    /////////////////////////////////////////////////
+    /* FOR TESTING PURPOSE 
     public static void main (String args[]){
         System.out.println("randome day:");
+
         phaseThree date = new phaseThree(11,3,1999); //random
-    System.out.println(date.formatDate(1));
+   System.out.println(date.formatDate(1));
         System.out.println(date.formatDate(2));
         System.out.println(date.formatDate(3));
         System.out.println(date.formatDate(4));
@@ -27,8 +30,21 @@ public class phaseThree {
         System.out.println(dataLast.formatDate(3));
         System.out.println(dataLast.formatDate(4));
         dataLast.nextDay();
-        System.out.println(dataLast.formatDate(1));
+        System.out.println(dataLast.formatDate(1)); 
+        //check skip ahead
+        phaseThree dateSkip=new phaseThree(12,25,1999);
+        dateSkip.skipAHead(7);
+        System.out.println(dateSkip.formatDate(1));
+
+        //check equal
+        GVdate otherDate = new GVdate("11/3/1999");
+        phaseThree datecheckcorrect=new phaseThree(11,3,1999);
+        System.out.println(datecheckcorrect.equal(otherDate)); //must be true
+        phaseThree datecheckfalse=new phaseThree(12,3,1999);
+        System.out.println(datecheckfalse.equal(otherDate));//must be false
     }
+    */
+    /////////////////////////////////////////////////
     public phaseThree(int month,int day,int year) {
         this.month=month;
         this.day=day;
@@ -135,6 +151,29 @@ public class phaseThree {
             return 31;
         }
         else{return 30;}
+    }
+    private void skipAHead(int numDays){
+        if(numDays>=0){
+            day=numDays+day;
+            if(day>getLastDayOfMonth(month,year)){
+                day=day-getLastDayOfMonth(month,year);
+                month=month+1;
+                if(month>12){
+                    month=month-11;
+                    year=year+1;
+                }
+                else{
+                    month=month-11;
+                }
+            }
+        }
+    }
+    public boolean equal(GVdate otherDate){
+        if(otherDate.getDay()==this.day&&otherDate.getMonth()==this.month&&otherDate.getYear()==this.year){
+            return true;
+        }
+
+        return false;
     }
 
 
